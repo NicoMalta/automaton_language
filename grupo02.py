@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 seguir = True
 gramatica = []
 
@@ -30,3 +31,22 @@ while seguir == True:
         seguir = True
     else:
         seguir = False
+=======
+stack = ['E']
+look = yylex()
+
+while stack:
+    s = stack.pop()
+    if s in NT:
+        l = tale[(s, look)]
+        l = l[::-1]
+        sack.extend(1)
+    elif s == look:
+        look = yylex()
+    else:
+        print('Error')
+if look == '$':
+    print('OK')
+else:
+    print('Error')
+>>>>>>> 7c170847e0a58c7098a77e3c778419e0a349305b
