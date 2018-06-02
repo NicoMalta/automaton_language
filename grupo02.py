@@ -1,38 +1,38 @@
-<<<<<<< HEAD
 seguir = True
-gramatica = []
+lista_gramatica = []
 
-def setear_gramatica(cadena):
-    i = 0
-    terminal = []
-    no_terminal = []
-    while i < len(cadena):
-        f = i
-        char = ''
-        while cadena[f] != ' ':
-            char += cadena[f]
-            f += 1
-        if char.isupper() == True:
-            no_terminal.append(char)
-        elif char != ' ' and char != ':' and char != '':
-            terminal.append(char)
-        i += 1
-    gramatica.append(cadena)
-    gramatica.append(no_terminal)
-    gramatica.append(terminal)
-    return gramatica
+class ReglaGramatica():
+    reglaGramatica = []
+    terminales = []
+    noTerminales = []
+    follows = []
+    firsts = []
+    selects = []
+
+
+
+def setear_gramatica(gramatica_str):
+    objeto = ReglaGramatica()
+    objeto.reglaGramatica.append("A : b C")
+    objeto.reglaGramatica.append("A : D")
+    lista_gramatica.append(objeto.reglaGramatica)
+
+
+    return lista_gramatica
+
 
 while seguir == True:
-    param_cadena = input()
-    print(setear_gramatica(param_cadena))
+    param_gramatica = input()
+    print(setear_gramatica(param_gramatica))
     seguir_str = input("Seguir ") 
   
     if seguir_str.upper() == "SI":
         seguir = True
     else:
         seguir = False
-=======
-stack = ['E']
+
+
+'''stack = ['E']
 look = yylex()
 
 while stack:
@@ -48,5 +48,4 @@ while stack:
 if look == '$':
     print('OK')
 else:
-    print('Error')
->>>>>>> 7c170847e0a58c7098a77e3c778419e0a349305b
+    print('Error')'''
