@@ -1,9 +1,17 @@
-martin = [1,2,3]
+stack = ['E']
+look = yylex()
 
-impar = 7
-
-par = 12
-
-suma = impar + par
-
-print(suma) 
+while stack:
+    s = stack.pop()
+    if s in NT:
+        l = tale[(s, look)]
+        l = l[::-1]
+        sack.extend(1)
+    elif s == look:
+        look = yylex()
+    else:
+        print('Error')
+if look == '$':
+    print('OK')
+else:
+    print('Error')
