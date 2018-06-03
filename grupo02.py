@@ -8,28 +8,19 @@ class ReglaGramatica():
     follows = []
     firsts = []
     selects = []
+    EsLL1 = bool
 
 
 
 def setear_gramatica(gramatica_str):
-    objeto = ReglaGramatica()
-    objeto.reglaGramatica.append("A : b C")
-    objeto.reglaGramatica.append("A : D")
-    lista_gramatica.append(objeto.reglaGramatica)
+    Reglas = ReglaGramatica()
+    
 
 
-    return lista_gramatica
 
+param_gramatica = input()
+print(setear_gramatica(param_gramatica))
 
-while seguir == True:
-    param_gramatica = input()
-    print(setear_gramatica(param_gramatica))
-    seguir_str = input("Seguir ") 
-  
-    if seguir_str.upper() == "SI":
-        seguir = True
-    else:
-        seguir = False
 
 
 '''stack = ['E']
