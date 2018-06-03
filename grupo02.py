@@ -27,19 +27,27 @@ def setear_gramatica(gramatica_str):
         if char.isupper() == True:
             Regla.noTerminales.append(char)
         elif char != '' and char != ':' and char !=' ' and char !='\n':
-            f = i+1
-            while gramatica_str[f] !=' ' and f < len(gramatica_str):
-                char += gramatica_str[f] 
-                f += 1
-            if f < len(gramatica_str):
-                Regla.terminales.append(char)
-                i += (f - i)
+            if  i+1 < len(gramatica_str):
+                f = i+1
+                while gramatica_str[f] != ' ':
+                    char += gramatica_str[f] 
+                    f += 1
+                if f < len(gramatica_str):
+                    Regla.terminales.append(char)
+                    i += ((f-1) - i)
         i += 1
-    input()
+
+        """Falta el ulimo caracter , ver porque se pierde"""
+
+    x = 0
+    for gramatica in lista_gramatica:
+        print("R",x,") " "Terminal: ",gramatica.terminales, "No Terminal: ",gramatica.noTerminales)
+        x = x + 1  
+
+
 
     
 
 
 
-'''param_gramatica = input()'''
-print(setear_gramatica("A : b A \n A : a \n A : A B c \n A : lambda \n B : b"))
+print(setear_gramatica("A : b A \n A : a \n A : A B c \n A : lambda \n B : c d"))
