@@ -21,9 +21,9 @@ def setear_gramatica(gramatica_str):
             lista_gramatica.append(Regla)
             Regla = ReglaGramatica()
         else:
-            if band == False:
+            if band == False and gramatica_str[i] != " ":
                 Regla.reglaGramatica.append(gramatica_str[i])
-            else:
+            elif gramatica_str[i] != " ":
                 Regla.reglaGramatica.append(char)
                 band = False
       
