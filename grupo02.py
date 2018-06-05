@@ -16,6 +16,7 @@ def setear_gramatica(gramatica_str):
     Regla = ReglaGramatica()
     i = 0 
     band = False
+    char = ""
     while i < len(gramatica_str):
         if gramatica_str[i] == "\n" or i == len(gramatica_str):
             lista_gramatica.append(Regla)
@@ -47,7 +48,23 @@ def setear_gramatica(gramatica_str):
                     Regla = ReglaGramatica()
         i += 1
 
-        """Falta el ulimo caracter , ver porque se pierde"""
+    for gram in lista_gramatica:
+        i=0
+        while gram.reglaGramatica[i] != ":":
+            i += 1
+        if gram.reglaGramatica[i+1].isupper() == False:
+            gram.firsts.append(gram.reglaGramatica[i+1])
+        else:
+            char_terminal = gram.reglaGramatica[i+1]
+            f = 0
+            for aux in lista_gramatica:
+                if aux.reglaGramatica[f] == char_terminal:
+                    while aux.reglaGramatica[f] != ":":
+                        f += 1
+                    if aux.reglaGramatica[f+1].isupper() == False:
+                        gram.firsts.append(aux.reglaGramatica[f+1])
+                        break
+
 
     x = 0
     for gramatica in lista_gramatica:
@@ -55,9 +72,4 @@ def setear_gramatica(gramatica_str):
         x = x + 1  
 
 
-
-    
-
-
-
-print(setear_gramatica("A : b A \n A : a \n A : A B c \n A : lambda \n B : c d"))
+print(setear_gramatica("A : b A \n A : B \n A : A B c \n B : c \n B : c d"))
