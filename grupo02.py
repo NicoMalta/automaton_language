@@ -11,46 +11,37 @@ class ReglaGramatica():
         self.selects = []
 
 
-
 def setear_gramatica(gramatica_str):
     Regla = ReglaGramatica()
     i = 0 
     band = False
     char = ""
     while i < len(gramatica_str):
-        if gramatica_str[i] == "\n" or i == len(gramatica_str):
-            lista_gramatica.append(Regla)
-            Regla = ReglaGramatica()
-        else:
-            if band == False and gramatica_str[i] != " ":
-                Regla.reglaGramatica.append(gramatica_str[i])
-            elif gramatica_str[i] != " ":
-                x = i
-                while (x < len(gramatica_str) and (gramatica_str[x] != " ")):
-                    char = char + gramatica_str[x]
-                    if x+1 <= len(gramatica_str):
-                        x = x + 1
-                Regla.reglaGramatica.append(char)
-                band = False   
         char = gramatica_str[i]
-        if char.isupper() == True:
-            Regla.noTerminales.append(char)
-        elif char != '' and char != ':' and char !=' ' and char !='\n':
-            f = i+1
-            if f == len(gramatica_str) and gramatica_str[f-2] != " ":
-                char += gramatica_str[f] 
-            elif f != len(gramatica_str):
-                while gramatica_str[f] != ' ':
-                    char += gramatica_str[f] 
-                    f += 1
-                    band = True
-            if f <= len(gramatica_str):
-                Regla.terminales.append(char)
-                i += ((f-1) - i)
-                if f == len(gramatica_str):
+        f = i + 1
+        if f > len(gramatica_str):
+            pass
+        else:
+            while f < len(gramatica_str) and gramatica_str[f] != " " and char != " ":
+                char += gramatica_str[f]
+                f = f + 1
+            i = f
+            if char == "\n":
+                lista_gramatica.append(Regla)
+                Regla = ReglaGramatica()
+            elif char != " ":
+                Regla.reglaGramatica.append(char)
+                if char != ":":
+                    if char.isupper() == True:
+                        Regla.terminales.append(char)
+                    else:
+                        Regla.noTerminales.append(char)
+                if i == len(gramatica_str):
                     lista_gramatica.append(Regla)
-                    Regla = ReglaGramatica()
-        i += 1
+
+
+
+  
 
     for gram in lista_gramatica:
         i=0
@@ -76,4 +67,4 @@ def setear_gramatica(gramatica_str):
         x = x + 1  
 
 
-print(setear_gramatica("A : b A \n A : a \n A : A B c \n A : lambda \n B : b c"))
+print(setear_gramatica("A : id gg \n A : a \n A : A B c \n A : lambda \n B : b ccc"))
