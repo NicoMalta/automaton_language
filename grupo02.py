@@ -60,14 +60,14 @@ def setear_gramatica(gramatica_str):
             gram.firsts.append(gram.reglaGramatica[i+1])
         else:
             char_terminal = gram.reglaGramatica[i+1]
-            f = 0
             for aux in lista_gramatica:
+                f = 0
                 if aux.reglaGramatica[f] == char_terminal:
                     while aux.reglaGramatica[f] != ":":
                         f += 1
                     if aux.reglaGramatica[f+1].isupper() == False:
                         gram.firsts.append(aux.reglaGramatica[f+1])
-                        break
+                        
 
 
     x = 0
@@ -76,4 +76,4 @@ def setear_gramatica(gramatica_str):
         x = x + 1  
 
 
-print(setear_gramatica("A : maltagay A \n A : B \n A : A B puto \n B : c \n B : casa d"))
+print(setear_gramatica("A : b A \n A : a \n A : A B c \n A : lambda \n B : b c"))
