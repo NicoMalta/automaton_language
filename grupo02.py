@@ -14,7 +14,6 @@ class ReglaGramatica():
 def setear_gramatica(gramatica_str):
     Regla = ReglaGramatica()
     i = 0 
-    band = False
     char = ""
     while i < len(gramatica_str):
         char = gramatica_str[i]
@@ -40,9 +39,6 @@ def setear_gramatica(gramatica_str):
                     lista_gramatica.append(Regla)
 
 
-
-  
-
     for gram in lista_gramatica:
         i=0
         while gram.reglaGramatica[i] != ":":
@@ -59,7 +55,23 @@ def setear_gramatica(gramatica_str):
                     if aux.reglaGramatica[f+1].isupper() == False:
                         gram.firsts.append(aux.reglaGramatica[f+1])
                         
-
+    for gram in lista_gramatica:
+        terminal = gram.terminales[0]
+        for gram_aux in lista_gramatica:
+            i=2
+            while i < len(gram_aux.reglaGramatica):
+                if gram_aux.reglaGramatica[i] == terminal:
+                    if i+1 == len(gram_aux.reglaGramatica):
+                        gram.follows.append("$")
+                    elif gram_aux.reglaGramatica[i+1].isupper() == False:
+                        gram.follows.append(gram_aux.reglaGramatica[i+1])
+                    else:
+                        for aux in lista_gramatica:
+                            if aux.reglaGramatica[0] == gram_aux.reglaGramatica[i+1]:
+                                for firsts in aux.firsts:
+                                    gram.follows.append(firsts)
+                i += 1
+        
 
     x = 0
     for gramatica in lista_gramatica:
@@ -67,4 +79,5 @@ def setear_gramatica(gramatica_str):
         x = x + 1  
 
 
-print(setear_gramatica("A : id gg \n A : a \n A : A B c \n A : lambda \n B : b ccc"))
+"""print(setear_gramatica("A : b A \n A : a \n A : A B c \n A : lambda \n B : b c"))"""
+print(setear_gramatica("S : X Y Z \n X : a \n X : b \n X : lambda \n Y : a \n Y : d \n Y : lambda \n Z : e \n Z : f \n Z : lambda"))
