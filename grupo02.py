@@ -62,7 +62,8 @@ def setear_gramatica(gramatica_str):
             while i < len(gram_aux.reglaGramatica):
                 if gram_aux.reglaGramatica[i] == terminal:
                     if i+1 == len(gram_aux.reglaGramatica):
-                        gram.follows.append("$")
+                        if ("$") not in gram.follows:
+                            gram.follows.append("$")
                     elif gram_aux.reglaGramatica[i+1].isupper() == False:
                         gram.follows.append(gram_aux.reglaGramatica[i+1])
                     else:
@@ -80,4 +81,5 @@ def setear_gramatica(gramatica_str):
 
 
 """print(setear_gramatica("A : b A \n A : a \n A : A B c \n A : lambda \n B : b c"))"""
-print(setear_gramatica("S : X Y Z \n X : a \n X : b \n X : lambda \n Y : a \n Y : d \n Y : lambda \n Z : e \n Z : f \n Z : lambda"))
+"""print(setear_gramatica("S : X Y Z \n X : a \n X : b \n X : lambda \n Y : a \n Y : d \n Y : lambda \n Z : e \n Z : f \n Z : lambda"))"""
+print(setear_gramatica("S : a S \n S : b \n S : T J \n S : lambda \n T : c T \n T : d \n J : j J \n J : k"))
