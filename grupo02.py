@@ -25,9 +25,13 @@ def setear_gramatica(gramatica_str):
             if band == False and gramatica_str[i] != " ":
                 Regla.reglaGramatica.append(gramatica_str[i])
             elif gramatica_str[i] != " ":
+                x = i
+                while (x < len(gramatica_str) and (gramatica_str[x] != " ")):
+                    char = char + gramatica_str[x]
+                    if x+1 <= len(gramatica_str):
+                        x = x + 1
                 Regla.reglaGramatica.append(char)
-                band = False
-      
+                band = False   
         char = gramatica_str[i]
         if char.isupper() == True:
             Regla.noTerminales.append(char)
@@ -74,4 +78,8 @@ def setear_gramatica(gramatica_str):
         x = x + 1  
 
 
+<<<<<<< HEAD
 print(setear_gramatica("A : b A \n A : B \n A : A B c \n A : lambda \n B : c d"))
+=======
+print(setear_gramatica("A : maltagay A \n A : B \n A : A B puto \n B : c \n B : casa d"))
+>>>>>>> 264b9ed773984d4db2a29b8b99996ff343893cce
