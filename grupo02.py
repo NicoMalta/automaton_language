@@ -1,11 +1,13 @@
+import re
+
 lista_gramatica = []
 
 class ReglaGramatica():
 
     def __init__(self):
         self.reglaGramatica = []
-        self.terminales = []
-        self.noTerminales = []
+        self.NoTerminal = []
+        self.Terminal = []
         self.follows = []
         self.firsts = []
         self.selects = []
@@ -32,9 +34,9 @@ def setear_gramatica(gramatica_str):
                 Regla.reglaGramatica.append(char)
                 if char != ":":
                     if char.isupper() == True:
-                        Regla.terminales.append(char)
+                        Regla.NoTerminal.append(char)
                     else:
-                        Regla.noTerminales.append(char)
+                        Regla.Terminal.append(char)
                 if i == len(gramatica_str):
                     lista_gramatica.append(Regla)
 
@@ -65,7 +67,7 @@ def setear_gramatica(gramatica_str):
 
                         
     for gram in lista_gramatica:
-        terminal = gram.terminales[0]
+        terminal = gram.NoTerminal[0]
         for gram_aux in lista_gramatica:
             i=2
             while i < len(gram_aux.reglaGramatica):
@@ -85,12 +87,32 @@ def setear_gramatica(gramatica_str):
                 i += 1
         
 
+
+    """SELECTS"""
+    for gramatica in lista_gramatica:
+        TodosLosFollows = False
+        if "lambda" in gramatica.firsts:
+            gramatica.selects += gramatica.follows
+        else:
+            gramatica.selects += gramatica.firsts
+
+   
+   
     x = 0
     for gramatica in lista_gramatica:
-        print("R",x,") " "Terminal: ",gramatica.terminales, "No Terminal: ",gramatica.noTerminales)
+        print("R",x,") " "NoTerminal: ",gramatica.NoTerminal, "Terminal: ",gramatica.Terminal)
         x = x + 1  
+    
+    print("-  -  -  -  -  -  -  -  -  -  -  -  -  -   -  -  -  -  -  -  -  -  -  -")
+
+    mylist = re.split("\n", gramatica_str)
+
+    contador = 0
+    for gramatica in lista_gramatica:
+        print("R",contador,") " "\x1b[1;33m"+"Gramatica:"+'\033[0;m', mylist[contador], "\x1b[1;32m"+" First: "+'\033[0;m',gramatica.firsts, "\033[1;31m"" Folows:"+'\033[0;m', gramatica.follows, "\x1b[1;36m"" Selects: "+'\033[0;m', gramatica.selects)
+        contador = contador + 1 
 
 
-"""print(setear_gramatica("A : b A \n A : a \n A : A B c \n A : lambda \n B : b c"))"""
-print(setear_gramatica("S : X Y Z \n X : a \n X : b \n X : lambda \n Y : a \n Y : d \n Y : lambda \n Z : e \n Z : f \n Z : lambda"))
+print(setear_gramatica("A : b A \n A : a \n A : A B c \n A : lambda \n B : b"))
+"""print(setear_gramatica("S : X Y Z \n X : a \n X : b \n X : lambda \n Y : a \n Y : d \n Y : lambda \n Z : e \n Z : f \n Z : lambda"))"""
 """print(setear_gramatica("S : a S \n S : b \n S : T J \n S : lambda \n T : c T \n T : d \n J : j J \n J : k"))"""
