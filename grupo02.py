@@ -42,14 +42,16 @@ def setear_gramatica(gramatica_str):
                     band = True
             if f <= len(gramatica_str):
                 Regla.terminales.append(char)
-                i += ((f-1) - i)
+                i += ((f-1) - i-1)
                 if f == len(gramatica_str):
                     lista_gramatica.append(Regla)
                     Regla = ReglaGramatica()
+                
         i += 1
 
     for gram in lista_gramatica:
         i=0
+        
         while gram.reglaGramatica[i] != ":":
             i += 1
         if gram.reglaGramatica[i+1].isupper() == False:
@@ -72,4 +74,4 @@ def setear_gramatica(gramatica_str):
         x = x + 1  
 
 
-print(setear_gramatica("A : b A \n A : B \n A : A B c \n B : c \n B : c d"))
+print(setear_gramatica("A : b A \n A : B \n A : A B c \n A : lambda \n B : c d"))
