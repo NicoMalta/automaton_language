@@ -47,13 +47,22 @@ def setear_gramatica(gramatica_str):
             gram.firsts.append(gram.reglaGramatica[i+1])
         else:
             char_terminal = gram.reglaGramatica[i+1]
+            g = i + 1
             for aux in lista_gramatica:
                 f = 0
                 if aux.reglaGramatica[f] == char_terminal:
                     while aux.reglaGramatica[f] != ":":
                         f += 1
-                    if aux.reglaGramatica[f+1].isupper() == False:
-                        gram.firsts.append(aux.reglaGramatica[f+1])
+                    if aux.reglaGramatica[f+1].isupper() == False and aux.reglaGramatica[f+1] != "lambda":
+                        if aux.reglaGramatica[f+1] not in gram.firsts:
+                            gram.firsts.append(aux.reglaGramatica[f+1])
+                    elif aux.reglaGramatica[f+1] == "lambda":
+                        g += 1
+                        if "lambda" not in gram.firsts:
+                            gram.firsts.append("lambda")
+                        if g < len(gram.reglaGramatica):
+                            char_terminal = gram.reglaGramatica[g]
+
                         
     for gram in lista_gramatica:
         terminal = gram.terminales[0]
@@ -65,12 +74,14 @@ def setear_gramatica(gramatica_str):
                         if ("$") not in gram.follows:
                             gram.follows.append("$")
                     elif gram_aux.reglaGramatica[i+1].isupper() == False:
-                        gram.follows.append(gram_aux.reglaGramatica[i+1])
+                        if (gram_aux.reglaGramatica[i+1]) not in gram.follows:
+                            gram.follows.append(gram_aux.reglaGramatica[i+1])
                     else:
                         for aux in lista_gramatica:
                             if aux.reglaGramatica[0] == gram_aux.reglaGramatica[i+1]:
                                 for firsts in aux.firsts:
-                                    gram.follows.append(firsts)
+                                    if firsts not in gram.follows:
+                                        gram.follows.append(firsts)
                 i += 1
         
 
@@ -81,5 +92,5 @@ def setear_gramatica(gramatica_str):
 
 
 """print(setear_gramatica("A : b A \n A : a \n A : A B c \n A : lambda \n B : b c"))"""
-"""print(setear_gramatica("S : X Y Z \n X : a \n X : b \n X : lambda \n Y : a \n Y : d \n Y : lambda \n Z : e \n Z : f \n Z : lambda"))"""
-print(setear_gramatica("S : a S \n S : b \n S : T J \n S : lambda \n T : c T \n T : d \n J : j J \n J : k"))
+print(setear_gramatica("S : X Y Z \n X : a \n X : b \n X : lambda \n Y : a \n Y : d \n Y : lambda \n Z : e \n Z : f \n Z : lambda"))
+"""print(setear_gramatica("S : a S \n S : b \n S : T J \n S : lambda \n T : c T \n T : d \n J : j J \n J : k"))"""
