@@ -139,8 +139,7 @@ def setear_gramatica(gramatica_str):
         contador = contador + 1 
 
 
-print(setear_gramatica("A : b A \n A : a \n A : A B c \n A : lambda \n B : b"))
+"""print(setear_gramatica("A : b A \n A : a \n A : A B c \n A : lambda \n B : b"))"""
+print(setear_gramatica("E : T G \n G : + T G \n G : - T G \n G : lambda \n T : F W \n W : * F W \n W : / F W \n W : lambda \n F : num \n F : ( E )"))
 """print(setear_gramatica("S : X Y Z \n X : a \n X : b \n X : lambda \n Y : a \n Y : d \n Y : lambda \n Z : e \n Z : f \n Z : lambda"))"""
-"""print(setear_gramatica("S : a S \n S : b \n S : T J \n S : lambda \n T : c T \n T : d \n J : j J \n J : k"))"""
-"""print(setear_gramatica("E : T R \n R : + T R \n T : F Y \n Y : * F Y  \n F : ( E )"))"""
 """print(setear_gramatica("E : T G \n G : + T G \n G : lambda \n T : F W \n W : * F W \n W : lambda \n F : ( E ) \n F : id"))"""
