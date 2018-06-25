@@ -137,9 +137,71 @@ def setear_gramatica(gramatica_str):
     for gramatica in lista_gramatica:
         print("R",contador,") " "\x1b[1;33m"+"Gramatica:"+'\033[0;m', mylist[contador], "\x1b[1;32m"+" First: "+'\033[0;m',gramatica.firsts, "\033[1;31m"" Folows:"+'\033[0;m', gramatica.follows, "\x1b[1;36m"" Selects: "+'\033[0;m', gramatica.selects)
         contador = contador + 1 
+    
+    tabla = []
+    renglon = []
+    
+    renglon.append(' ')
+    cantidadReglas = 0
+    letrasReglas = []
+
+    for gramatica in lista_gramatica:
+        if gramatica.reglaGramatica[0] not in letrasReglas:
+            letrasReglas.append(gramatica.reglaGramatica[0])
+            cantidadReglas += 1
+    
+        for caracter in gramatica.Terminal:
+            if caracter not in renglon and caracter != "lambda":
+                renglon.append(caracter)
+
+    renglon.append('$')
+    tabla.append(renglon)
+    
+    posicion = 0
+    regla = 0
+
+    while regla < cantidadReglas:
+        linea = []
+        for terminal in renglon:
+            linea.append(' ')
+        linea[0] = letrasReglas[posicion]
+        posicion += 1 
+        tabla.append(linea)  
+        regla += 1 
+        
+    for gramatica in lista_gramatica:
+        for select in gramatica.selects:
+            indiceA = 1
+            while indiceA < len(tabla):
+                if tabla[indiceA][0] == gramatica.reglaGramatica[0]:
+                    break
+                indiceA += 1
+            
+            indiceB = 1
+            while indiceB < len(tabla[0]):
+                if tabla[0][indiceB] == select:
+                    break
+                indiceB += 1
+            
+
+            for caracter in gramatica.reglaGramatica[2:len(gramatica.reglaGramatica)]:
+                if caracter == 'lambda':
+                    tabla[indiceA][indiceB] = '#'
+                else:
+                    tabla[indiceA][indiceB] += caracter
+            
+    
+    print()
+    print('The Table')
+    print()
+    for x in tabla:
+        print(x)
+    
+
 
 
 """print(setear_gramatica("A : b A \n A : a \n A : A B c \n A : lambda \n B : b"))"""
-print(setear_gramatica("E : T G \n G : + T G \n G : - T G \n G : lambda \n T : F W \n W : * F W \n W : / F W \n W : lambda \n F : num \n F : ( E )"))
+"""print(setear_gramatica("E : T G \n G : + T G \n G : - T G \n G : lambda \n T : F W \n W : * F W \n W : / F W \n W : lambda \n F : num \n F : ( E )"))"""
 """print(setear_gramatica("S : X Y Z \n X : a \n X : b \n X : lambda \n Y : a \n Y : d \n Y : lambda \n Z : e \n Z : f \n Z : lambda"))"""
 """print(setear_gramatica("E : T G \n G : + T G \n G : lambda \n T : F W \n W : * F W \n W : lambda \n F : ( E ) \n F : id"))"""
+print(setear_gramatica("E : T W \n W : + T W \n W : - T W \n W : lambda \n T : F G \n G : * F G \n G : / F T \n G : lambda \n F : num \n F : ( E )"))
