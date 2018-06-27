@@ -1,8 +1,10 @@
 import re
 import operator
 
+
 lista_gramatica = []
 lista_auxiliar = []
+table = []
 class ReglaGramatica():
 
     def __init__(self):
@@ -87,13 +89,9 @@ def tabla(gramatica_str):
                     tabla[indiceA][indiceB] = '#'
                 else:
                     tabla[indiceA][indiceB] += caracter
-            
-    
-    print()
-    print('The Table')
-    print()
-    for x in tabla:
-        print(x)
+
+    return tabla
+
 
 def crearLista(gramatica_str):
     Regla = ReglaGramatica()
@@ -255,6 +253,37 @@ def setear_gramatica(gramatica_str):
     else:
         print("No es LL1")
 
+def evaluar_cadena(cadena,gramatica_str):
+    stack = []
+    tokens = []
+    table = tabla(gramatica_str)
+    for gram in lista_gramatica:
+        for T in gram.Terminal:
+            if T not in tokens:
+                tokens.append(T)
+    tokens.append('$')
+
+    stack.append('$')
+    stack.append(lista_gramatica[0].reglaGramatica[0])
+    palabras = cadena.split(' ')
+    i = 0
+    look = palabras[i]
+    while stack:
+        s = stack.pop()
+        for gram in lista_gramatica:
+            if s in gram.NoTerminal:
+                l = table[s][look]
+                l = l[::-1]
+                stack.extend(l)
+            elif s == look:
+                i += 1
+                look=palabras[i]
+            else:
+                print('Error')
+        if look == '$':
+            print(OK)
+        else:
+            print('Error')
     
 
 
@@ -264,3 +293,5 @@ def setear_gramatica(gramatica_str):
 """print(setear_gramatica("S : X Y Z \n X : a \n X : b \n X : lambda \n Y : a \n Y : d \n Y : lambda \n Z : e \n Z : f \n Z : lambda"))"""
 """print(setear_gramatica("E : T G \n G : + T G \n G : lambda \n T : F W \n W : * F W \n W : lambda \n F : ( E ) \n F : id"))"""
 print(setear_gramatica("E : T W \n W : + T W \n W : - T W \n W : lambda \n T : F G \n G : * F G \n G : / F T \n G : lambda \n F : num \n F : ( E )"))
+gramatica = "E : T W \n W : + T W \n W : - T W \n W : lambda \n T : F G \n G : * F G \n G : / F T \n G : lambda \n F : num \n F : ( E )"
+evaluar_cadena("id",gramatica)
